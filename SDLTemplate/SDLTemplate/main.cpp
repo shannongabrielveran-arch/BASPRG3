@@ -3,7 +3,11 @@
 
 int main(int argc, char* argv[])
 {
-	SDL_Window* window = nullptr;
+	//The window we'll be rendering to
+	SDL_Window* window = NULL;
+
+	//The surface contained by the window
+	SDL_Surface* screenSurface = NULL;
 
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
@@ -18,6 +22,11 @@ int main(int argc, char* argv[])
 		}
 		else
 		{
+			//Get window surface
+			screenSurface = SDL_GetWindowSurface(window);
+
+			//Fill the surface white
+			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0x00, 0x00, 0x00));
 			SDL_UpdateWindowSurface(window);
 			SDL_Delay(2000);
 		}
