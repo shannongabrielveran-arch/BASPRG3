@@ -1,39 +1,73 @@
-#include <SDL.h>
-#include <iostream>
+#include "main.h"
+
+static void capFrameRate(long* then, float* remainder);
 
 int main(int argc, char* argv[])
 {
-	//The window we'll be rendering to
-	SDL_Window* window = NULL;
+	long then;
+	float remainder;
 
-	//The surface contained by the window
-	SDL_Surface* screenSurface = NULL;
+	// Allocate memory for the App struct
+	memset(&app, 0, sizeof(App));
+	app.textureTail = &app.textureHead;
 
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	// Initialize SDL and open a window
+	initSDL();
+	// On application exit, call cleanup function
+	atexit(cleanup);
+
+	then = SDL_GetTicks();
+	remainder = 0;
+
+	// Initialize GameScene or any first scene you want here
+	GameScene *scene = new GameScene();
+	
+	// Framework code
+	// Pass in your initialized variable here
+	Scene::setActiveScene(scene);
+
+	// Start the active scene
+	Scene::getActiveScene()->start();
+	
+	// Main game loop
+	while (true)
 	{
-		std::cout << "Video Initialization Error: " << SDL_GetError() << std::endl;
-	}
-	else
-	{
-		window = SDL_CreateWindow("BASPRG3 SDL", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN);
-		if (window == NULL)
-		{
-			std::cout << "Window creation error: " << SDL_GetError() << std::endl;
-		}
-		else
-		{
-			//Get window surface
-			screenSurface = SDL_GetWindowSurface(window);
+		prepareScene();
+		doInput();
 
-			//Fill the surface white
-			SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, 0x00, 0x00, 0x00));
-			SDL_UpdateWindowSurface(window);
-			SDL_Delay(2000);
-		}
-	}
+		Scene::getActiveScene()->update();
+		Scene::getActiveScene()->draw();
 
-	SDL_DestroyWindow(window);
-	SDL_Quit();
+		presentScene();
+
+		capFrameRate(&then, &remainder);
+	}
+	// Delete your instantiated scene here
+	delete scene;
 
 	return 0;
+}
+
+static void capFrameRate(long* then, float* remainder)
+{
+	long wait, frameTime;
+
+	wait = 16 + *remainder;
+
+	*remainder -= (int)*remainder;
+
+	frameTime = SDL_GetTicks() - *then;
+
+	wait -= frameTime;
+
+	if (wait < 1)
+	{
+		wait = 1;
+	}
+
+	SDL_Delay(wait);
+
+	*remainder += 0.667;
+
+	*then = SDL_GetTicks();
 }

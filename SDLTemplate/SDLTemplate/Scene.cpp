@@ -1,0 +1,64 @@
+#include "Scene.h"
+#include "GameObject.h"
+
+Scene* Scene::activeScene = NULL;
+
+Scene::~Scene()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		delete objects[i];
+	}
+	objects.clear();
+}
+
+void Scene::setActiveScene(Scene* scene)
+{
+	if (Scene::activeScene != NULL) 
+	{
+		delete Scene::activeScene;
+		Scene::activeScene = NULL;
+	}
+
+	Scene::activeScene = scene;
+}
+
+Scene* Scene::getActiveScene()
+{
+	return Scene::activeScene;
+}
+
+void Scene::addGameObject(GameObject* obj)
+{
+	objects.push_back(obj);
+}
+
+void Scene::removeGameObject(GameObject* obj)
+{
+	std::vector<GameObject*>::iterator itr = std::find(objects.begin(), objects.end(), obj);
+	objects.erase(itr);
+}
+
+void Scene::update()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		objects[i]->update();
+	}
+}
+
+void Scene::draw()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		objects[i]->draw();
+	}
+}
+
+void Scene::start()
+{
+	for (int i = 0; i < objects.size(); i++)
+	{
+		objects[i]->start();
+	}
+}
