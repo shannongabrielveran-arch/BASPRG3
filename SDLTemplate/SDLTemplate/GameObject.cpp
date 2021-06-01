@@ -11,7 +11,7 @@ void GameObject::setScene(Scene* scene)
 	parentScene = scene;
 }
 
-const Scene* GameObject::getScene()
+Scene* GameObject::getScene()
 {
 	return parentScene;
 }

@@ -25,9 +25,6 @@ int main(int argc, char* argv[])
 	// Framework code
 	// Pass in your initialized variable here
 	Scene::setActiveScene(scene);
-
-	// Start the active scene
-	Scene::getActiveScene()->start();
 	
 	// Main game loop
 	while (true)
