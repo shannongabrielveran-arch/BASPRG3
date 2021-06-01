@@ -30,6 +30,7 @@ Scene* Scene::getActiveScene()
 
 void Scene::addGameObject(GameObject* obj)
 {
+	obj->setScene(this);
 	objects.push_back(obj);
 }
 
