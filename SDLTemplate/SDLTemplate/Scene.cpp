@@ -3,6 +3,11 @@
 
 Scene* Scene::activeScene = NULL;
 
+Scene::Scene()
+{
+	hasStarted = false;
+}
+
 Scene::~Scene()
 {
 	for (int i = 0; i < objects.size(); i++)
@@ -14,7 +19,7 @@ Scene::~Scene()
 
 void Scene::setActiveScene(Scene* scene)
 {
-	if (Scene::activeScene != NULL) 
+	if (Scene::activeScene != NULL)
 	{
 		delete Scene::activeScene;
 		Scene::activeScene = NULL;
@@ -33,6 +38,8 @@ void Scene::addGameObject(GameObject* obj)
 {
 	obj->setScene(this);
 	objects.push_back(obj);
+	// Call start on the object if this was added while the scene is running
+	if (hasStarted) obj->start();
 }
 
 void Scene::removeGameObject(GameObject* obj)
@@ -63,4 +70,5 @@ void Scene::start()
 	{
 		objects[i]->start();
 	}
+	hasStarted = true;
 }

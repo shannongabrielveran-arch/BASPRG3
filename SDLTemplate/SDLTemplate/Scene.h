@@ -9,6 +9,7 @@ class GameObject;
 class Scene
 {
 public:
+	Scene();
 	~Scene();
 
 	static void setActiveScene(Scene* scene);
@@ -21,9 +22,10 @@ public:
 	virtual void update();
 	virtual void draw();
 
-	
-private:
-	static Scene* activeScene;
+protected:
 	std::vector <GameObject*> objects;
+private:
+	bool hasStarted;
+	static Scene* activeScene;
 };
 
