@@ -4,6 +4,7 @@ static void capFrameRate(long* then, float* remainder);
 
 int main(int argc, char* argv[])
 {
+	srand(time(NULL));
 	long then;
 	float remainder;
 
