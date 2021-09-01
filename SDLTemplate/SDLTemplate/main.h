@@ -7,6 +7,7 @@
 #include "SoundManager.h"
 #include "Scene.h"
 #include "GameScene.h"
+#include <time.h>
 
 // Global variable for application handling
 App app;
