@@ -87,3 +87,22 @@ void blitRotate(SDL_Texture* texture, int x, int y, double angle)
 
 	SDL_RenderCopyEx(app.renderer, texture, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
 }
+
+void blitScale(SDL_Texture* texture, int x, int y, int* width, int* height, int scale)
+{
+	SDL_Rect dest;
+	int tempW;
+	int tempH;
+	SDL_QueryTexture(texture, NULL, NULL, &tempW, &tempH);
+
+	dest.x = x;
+	dest.y = y;
+	dest.w = tempW * scale;
+	dest.h = tempH * scale;
+
+	// Why? so it can automatically change the collisions for width and height, since width and height are in a separate universe
+	*width *= scale;
+	*height *= scale;
+
+	SDL_RenderCopy(app.renderer, texture, NULL, &dest);
+}
