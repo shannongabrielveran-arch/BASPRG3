@@ -1,20 +1,35 @@
 #pragma once
-
 #include "GameObject.h"
 #include "common.h"
+#include "draw.h"
+#include "SoundManager.h"
+#include "Bullet.h"
+#include <vector>
 
 class Player : public GameObject
 {
 public:
-    void start() override;
-    void update() override;
-    void draw() override;
-
+	~Player(); 
+	void start() override;
+	void update() override;
+	void draw() override;
+	int getX();
+	int getY();
 private:
-    SDL_Texture* texture = nullptr;
-    int x = 0;
-    int y = 0;
-    int width = 0;
-    int height = 0;
-    int movementSpeed = 1;
+	int x;
+	int y;
+	int width;
+	int height;
+	SDL_Texture* texture;
+	int currentSpeed;
+
+	Mix_Chunk* sound;
+
+	int defaultSpeed;
+	int boostedSpeed;
+
+	float reloadTime;
+	float currentReloadTime;
+
+	std::vector<Bullet*> bullets;
 };

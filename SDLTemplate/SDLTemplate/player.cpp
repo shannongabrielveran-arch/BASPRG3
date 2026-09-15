@@ -1,66 +1,102 @@
-#include "player.h"
-#include "draw.h"
-#include "input.h"
+#include "Player.h"
+#include "GameScene.h"
+
+Player::~Player()
+{
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		delete bullets[i];
+	}
+
+	bullets.clear();
+}
 
 void Player::start()
 {
-    texture = loadTexture("C:/Users/user/Downloads/Assets/player.png");
+	// Load texture
+	// This only supports jpeg, png, and bitmaps
+	texture = loadTexture("gfx/player.png");
+	sound = SoundManager::loadSound("sound/shoot.ogg");
 
-    x = 100;
-    y = 100;
-    width = 0;
-    height = 0;
-    movementSpeed = 1;
+	// Initialize to avoid garbage values
+	x = 100;
+	y = 100;
+	width = 0;
+	height = 0;
 
-    if (texture != nullptr)
-    {
-        SDL_QueryTexture(texture, NULL, NULL, &width, &height);
-    }
+	defaultSpeed = 5;
+	boostedSpeed = 10;
+	currentSpeed = defaultSpeed;
+
+	reloadTime = 4; // 0.16sec (8/60)
+	currentReloadTime = 0;
+
+	// Query the texture to set our width and height
+	SDL_QueryTexture(texture, NULL, NULL, &width, &height);
 }
 
 void Player::update()
 {
-    // Set speed. It stays selected after releasing the key.
-    if (app.keyboard[SDL_SCANCODE_LSHIFT])
-    {
-        movementSpeed = 5;
-    }
+	for (int i = 0; i < bullets.size(); i++)
+	{
+		if (bullets[i]->GetX() > SCREEN_WIDTH)
+		{
+			Bullet* bulletToDelete = bullets[i];
+			bullets.erase(bullets.begin() + i);
+			delete bulletToDelete;
 
-    if (app.keyboard[SDL_SCANCODE_BACKSPACE])
-    {
-        movementSpeed = 1;
-    }
+			break;
+		}
+	}
 
-    // Move using WASD or arrow keys.
-    if (app.keyboard[SDL_SCANCODE_W] ||
-        app.keyboard[SDL_SCANCODE_UP])
-    {
-        y -= movementSpeed;
-    }
+	if (currentReloadTime > 0)
+	{
+		currentReloadTime--;
+	}
 
-    if (app.keyboard[SDL_SCANCODE_S] ||
-        app.keyboard[SDL_SCANCODE_DOWN])
-    {
-        y += movementSpeed;
-    }
+	if (app.keyboard[SDL_SCANCODE_F] && currentReloadTime <= 0)
+	{
+		SoundManager::playSound(sound);
+		Bullet* bullet = new Bullet
+		(
+			x + width - 5,
+			y + (height / 2) - 5,
+			1,
+			0,
+			5
+		);
+		getScene()->addGameObject(bullet);
+		bullets.push_back(bullet);
 
-    if (app.keyboard[SDL_SCANCODE_A] ||
-        app.keyboard[SDL_SCANCODE_LEFT])
-    {
-        x -= movementSpeed;
-    }
-
-    if (app.keyboard[SDL_SCANCODE_D] ||
-        app.keyboard[SDL_SCANCODE_RIGHT])
-    {
-        x += movementSpeed;
-    }
+		currentReloadTime = reloadTime;
+	}
+	if (app.keyboard[SDL_SCANCODE_LSHIFT])
+	{
+		currentSpeed = boostedSpeed;
+	}
+	if (app.keyboard[SDL_SCANCODE_BACKSPACE])
+	{
+		currentSpeed = defaultSpeed;
+	}
+	if (app.keyboard[SDL_SCANCODE_W])
+	{
+		y -= currentSpeed;
+	}
+	if (app.keyboard[SDL_SCANCODE_S])
+	{
+		y += currentSpeed;
+	}
+	if (app.keyboard[SDL_SCANCODE_A])
+	{
+		x -= currentSpeed;
+	}
+	if (app.keyboard[SDL_SCANCODE_D])
+	{
+		x += currentSpeed;
+	}
 }
 
 void Player::draw()
 {
-    if (texture != nullptr)
-    {
-        blit(texture, x, y);
-    }
+	blit(texture, x, y);
 }
