@@ -9,7 +9,7 @@
 class Player : public GameObject
 {
 public:
-	~Player(); 
+	~Player();
 	void start() override;
 	void update() override;
 	void draw() override;
@@ -30,6 +30,9 @@ private:
 
 	float reloadTime;
 	float currentReloadTime;
+
+	float wingReloadTime;
+	float currentWingReloadTime;
 
 	std::vector<Bullet*> bullets;
 };
