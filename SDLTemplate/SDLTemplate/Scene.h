@@ -1,31 +1,32 @@
 #pragma once
 #include <vector>
-#include "app.h"
 #include <algorithm>
+#include "app.h"
 
 extern App app;
+
 class GameObject;
 
 class Scene
 {
 public:
-	Scene();
-	~Scene();
+    Scene();
+    virtual ~Scene();
 
-	static void setActiveScene(Scene* scene);
-	static Scene* getActiveScene();
+    static void setActiveScene(Scene* scene);
+    static Scene* getActiveScene();
 
-	void addGameObject(GameObject* obj);
-	void removeGameObject(GameObject* obj);
+    void addGameObject(GameObject* obj);
+    void removeGameObject(GameObject* obj);
 
-	virtual void start();
-	virtual void update();
-	virtual void draw();
+    virtual void start();
+    virtual void update();
+    virtual void draw();
 
 protected:
-	std::vector <GameObject*> objects;
-private:
-	bool hasStarted;
-	static Scene* activeScene;
-};
+    std::vector<GameObject*> objects;
 
+private:
+    bool hasStarted;
+    static Scene* activeScene;
+};

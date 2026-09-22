@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="draw.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="init.cpp" />
@@ -29,6 +30,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
@@ -38,6 +40,7 @@
     <ClInclude Include="common.h" />
     <ClInclude Include="defs.h" />
     <ClInclude Include="draw.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="init.h" />
@@ -46,6 +49,7 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="util.h" />
   </ItemGroup>

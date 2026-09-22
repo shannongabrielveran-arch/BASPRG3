@@ -4,35 +4,35 @@
 #include "draw.h"
 #include "SoundManager.h"
 #include "Bullet.h"
-#include <vector>
 
 class Player : public GameObject
 {
 public:
-	~Player();
-	void start() override;
-	void update() override;
-	void draw() override;
-	int getX();
-	int getY();
+    ~Player() override;
+
+    void start() override;
+    void update() override;
+    void draw() override;
+
+    int getX();
+    int getY();
+
 private:
-	int x;
-	int y;
-	int width;
-	int height;
-	SDL_Texture* texture;
-	int currentSpeed;
+    int x;
+    int y;
+    int width;
+    int height;
 
-	Mix_Chunk* sound;
+    SDL_Texture* texture;
+    Mix_Chunk* sound;
 
-	int defaultSpeed;
-	int boostedSpeed;
+    int currentSpeed;
+    int defaultSpeed;
+    int boostedSpeed;
 
-	float reloadTime;
-	float currentReloadTime;
+    float reloadTime;
+    float currentReloadTime;
 
-	float wingReloadTime;
-	float currentWingReloadTime;
-
-	std::vector<Bullet*> bullets;
+    float wingReloadTime;
+    float currentWingReloadTime;
 };

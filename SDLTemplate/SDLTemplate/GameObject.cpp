@@ -3,17 +3,20 @@
 
 GameObject::~GameObject()
 {
-	Scene::getActiveScene()->removeGameObject(this);
+    if (parentScene)
+    {
+        parentScene->removeGameObject(this);
+    }
 }
 
 void GameObject::setScene(Scene* scene)
 {
-	parentScene = scene;
+    parentScene = scene;
 }
 
 Scene* GameObject::getScene()
 {
-	return parentScene;
+    return parentScene;
 }
 
 void GameObject::start()

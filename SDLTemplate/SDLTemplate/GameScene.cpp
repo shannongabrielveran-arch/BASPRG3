@@ -1,21 +1,22 @@
 #include "GameScene.h"
+#include "Spawner.h"
 
 GameScene::GameScene()
 {
-    // Register and add game objects on constructor
     player = new Player();
-    this->addGameObject(player);
+    addGameObject(player);
+
+    addGameObject(new EnemySpawner());
 }
 
 GameScene::~GameScene()
 {
-    delete player;
+    // Scene handles deleting its objects.
 }
 
 void GameScene::start()
 {
     Scene::start();
-    // Initialize any scene logic here
 }
 
 void GameScene::draw()

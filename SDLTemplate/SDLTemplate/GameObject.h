@@ -1,19 +1,30 @@
 #pragma once
+
 class Scene;
+
 class GameObject
 {
 public:
-	~GameObject();
-	// Sets the scene pointer for the gameobject
-	void setScene(Scene* scene);
-	// Returns the scene pointer where this game object is found in
-	Scene* getScene();
+    virtual ~GameObject();
 
-	virtual void start();
-	virtual void update();
-	virtual void draw();
+    void setScene(Scene* scene);
+    Scene* getScene();
+
+    virtual void start();
+    virtual void update();
+    virtual void draw();
+
+    void destroy()
+    {
+        destroyed = true;
+    }
+
+    bool isDestroyed() const
+    {
+        return destroyed;
+    }
+
 private:
-	// Scene where this object belongs to
-	Scene* parentScene;
+    Scene* parentScene = nullptr;
+    bool destroyed = false;
 };
-
