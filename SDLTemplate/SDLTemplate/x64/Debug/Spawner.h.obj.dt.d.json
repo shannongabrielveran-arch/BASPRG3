@@ -1,0 +1,12 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\user\\source\\repos\\basprg3\\sdltemplate\\sdltemplate\\spawner.h",
+        "ProvidedModule": "",
+        "Includes": [
+            "c:\\users\\user\\source\\repos\\basprg3\\sdltemplate\\sdltemplate\\gameobject.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}

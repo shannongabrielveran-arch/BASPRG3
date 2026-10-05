@@ -1,4 +1,5 @@
 #pragma once
+
 #include "GameObject.h"
 #include "common.h"
 #include "draw.h"
@@ -22,14 +23,22 @@ public:
     int GetX();
     int GetY();
 
+    int GetWidth();
+    int GetHeight();
+
+    bool IsEnemyBullet();
+
 private:
     bool enemyBullet;
 
     int x;
     int y;
+
     int width;
     int height;
+
     int speed;
+
     int directionX;
     int directionY;
 

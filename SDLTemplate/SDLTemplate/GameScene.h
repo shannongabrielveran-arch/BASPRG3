@@ -1,17 +1,22 @@
 #pragma once
+
 #include "Scene.h"
 #include "GameObject.h"
 #include "player.h"
+#include "draw.h"
 
 class GameScene : public Scene
 {
 public:
-	GameScene();
-	~GameScene();
-	void start();
-	void draw();
-	void update();
-private:
-	Player* player;
-};
+    GameScene();
+    ~GameScene();
 
+    void start();
+    void draw();
+    void update();
+
+private:
+    Player* player;
+
+    SDL_Texture* backgroundTexture;
+};

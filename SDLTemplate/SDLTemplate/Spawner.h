@@ -1,4 +1,5 @@
 #pragma once
+
 #include "GameObject.h"
 
 class EnemySpawner : public GameObject

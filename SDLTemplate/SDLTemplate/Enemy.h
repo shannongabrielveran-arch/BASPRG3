@@ -1,7 +1,9 @@
 #pragma once
+
 #include "GameObject.h"
 #include "common.h"
 #include "SoundManager.h"
+#include "draw.h"
 
 class Enemy : public GameObject
 {
@@ -12,8 +14,16 @@ public:
     void update() override;
     void draw() override;
 
+    int getX();
+    int getY();
+
+    int getWidth();
+    int getHeight();
+
 private:
-    int x, y;
+    int x;
+    int y;
+
     int width = 0;
     int height = 0;
 

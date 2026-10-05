@@ -16,11 +16,13 @@ void Player::start()
 
     x = 100;
     y = 100;
+
     width = 0;
     height = 0;
 
     defaultSpeed = 5;
     boostedSpeed = 10;
+
     currentSpeed = defaultSpeed;
 
     reloadTime = 4;
@@ -30,7 +32,11 @@ void Player::start()
     currentWingReloadTime = 0;
 
     SDL_QueryTexture(
-        texture, NULL, NULL, &width, &height
+        texture,
+        NULL,
+        NULL,
+        &width,
+        &height
     );
 }
 
@@ -76,47 +82,111 @@ void Player::update()
         SoundManager::playSound(sound);
 
         Bullet* upperBullet = new Bullet(
-            x, y, 1, 0, 5
+            x,
+            y,
+            1,
+            0,
+            5
         );
 
         Bullet* lowerBullet = new Bullet(
-            x, y + height - 5, 1, 0, 5
+            x,
+            y + height - 5,
+            1,
+            0,
+            5
         );
 
-        getScene()->addGameObject(upperBullet);
-        getScene()->addGameObject(lowerBullet);
+        getScene()->addGameObject(
+            upperBullet
+        );
 
-        currentWingReloadTime = wingReloadTime;
+        getScene()->addGameObject(
+            lowerBullet
+        );
+
+        currentWingReloadTime =
+            wingReloadTime;
     }
 
-    if (app.keyboard[SDL_SCANCODE_LSHIFT])
+    // Hold Left Shift to increase speed.
+    if (
+        app.keyboard[
+            SDL_SCANCODE_LSHIFT
+        ]
+        )
     {
         currentSpeed = boostedSpeed;
     }
 
-    if (app.keyboard[SDL_SCANCODE_BACKSPACE])
+    // Backspace returns speed to normal.
+    if (
+        app.keyboard[
+            SDL_SCANCODE_BACKSPACE
+        ]
+        )
     {
         currentSpeed = defaultSpeed;
     }
 
-    if (app.keyboard[SDL_SCANCODE_W])
+    if (
+        app.keyboard[
+            SDL_SCANCODE_W
+        ]
+        )
     {
         y -= currentSpeed;
     }
 
-    if (app.keyboard[SDL_SCANCODE_S])
+    if (
+        app.keyboard[
+            SDL_SCANCODE_S
+        ]
+        )
     {
         y += currentSpeed;
     }
 
-    if (app.keyboard[SDL_SCANCODE_A])
+    if (
+        app.keyboard[
+            SDL_SCANCODE_A
+        ]
+        )
     {
         x -= currentSpeed;
     }
 
-    if (app.keyboard[SDL_SCANCODE_D])
+    if (
+        app.keyboard[
+            SDL_SCANCODE_D
+        ]
+        )
     {
         x += currentSpeed;
+    }
+
+    // Keep player inside left side.
+    if (x < 0)
+    {
+        x = 0;
+    }
+
+    // Keep player inside right side.
+    if (x + width > SCREEN_WIDTH)
+    {
+        x = SCREEN_WIDTH - width;
+    }
+
+    // Keep player inside top.
+    if (y < 0)
+    {
+        y = 0;
+    }
+
+    // Keep player inside bottom.
+    if (y + height > SCREEN_HEIGHT)
+    {
+        y = SCREEN_HEIGHT - height;
     }
 }
 

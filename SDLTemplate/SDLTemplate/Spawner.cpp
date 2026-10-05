@@ -12,10 +12,12 @@ void EnemySpawner::update()
     if (currentSpawnTime > 0)
     {
         currentSpawnTime--;
+
         return;
     }
 
-    // Spawn at the right edge with a random height.
+    // Spawn an enemy at the right edge
+    // at a random height.
     Enemy* enemy = new Enemy(
         SCREEN_WIDTH,
         rand() % SCREEN_HEIGHT
@@ -23,5 +25,6 @@ void EnemySpawner::update()
 
     getScene()->addGameObject(enemy);
 
-    currentSpawnTime = spawnTime - 1;
+    currentSpawnTime =
+        spawnTime - 1;
 }
