@@ -1,3 +1,4 @@
+
 #pragma once
 
 #include "Scene.h"
@@ -19,4 +20,5 @@ private:
     Player* player;
 
     SDL_Texture* backgroundTexture;
+    int pickupSpawnFrames = 6 * FPS;
 };
